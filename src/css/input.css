@@ -103,7 +103,7 @@ h1 {
 
 /* input side - lighter version of bg color with left rounded corners */
 #input {
-	background: hsla(0, 0%, 100%, 0.5);
+	background: hsla(0, 0%, 100%, 0.4);
 	padding: 1rem;
 	transition: background-color 0.6s ease;
 }
@@ -135,6 +135,13 @@ h1 {
 #input,
 #input * {
 	color: white;
+	text-shadow: none;
+	filter: none;
+}
+
+#input h1 {
+	text-shadow: none;
+	filter: none;
 }
 
 .bg-selected-600 {
