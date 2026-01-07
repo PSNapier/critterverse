@@ -172,12 +172,6 @@
   }
 }
 @layer utilities {
-  .col-span-4 {
-    grid-column: span 4 / span 4;
-  }
-  .col-span-5 {
-    grid-column: span 5 / span 5;
-  }
   .m-2 {
     margin: calc(var(--spacing) * 2);
   }
@@ -199,8 +193,8 @@
   .max-w-\[720px\] {
     max-width: 720px;
   }
-  .grid-cols-9 {
-    grid-template-columns: repeat(9, minmax(0, 1fr));
+  .grid-cols-2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
   .flex-col {
     flex-direction: column;
@@ -260,12 +254,19 @@
 }
 body {
   min-height: 100vh;
+  min-width: 320px;
   background: linear-gradient(	135deg,	var(--selected-600) 0%,	var(--selected-600-bright) 25%,	var(--selected-600-alpha) 50%,	var(--selected-600-bright) 75%,	var(--selected-600) 100%	);
   background-size: 200% 200%;
   background-attachment: fixed;
   animation: gradientShift 15s ease infinite;
   transition: background-color 0.6s ease,	background-image 0.6s ease;
   will-change: background;
+}
+@media (max-width: 320px) {
+  html,	body {
+    overflow-x: auto;
+    min-width: 320px;
+  }
 }
 @keyframes gradientShift {
   0% {
@@ -342,6 +343,19 @@ h1 {
   background: rgba(255, 255, 255, 0.9);
   backdrop-filter: blur(20px);
   padding: 1rem;
+}
+@media (max-width: 768px) {
+  #card {
+    grid-template-columns: 1fr;
+    margin-left: 1rem;
+    margin-right: 1rem;
+  }
+  #input {
+    border-radius: 1rem 1rem 0 0;
+  }
+  #output {
+    border-radius: 0 0 1rem 1rem;
+  }
 }
 #input, #input * {
   color: white;
