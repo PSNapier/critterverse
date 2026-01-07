@@ -1,0 +1,15 @@
+---
+alwaysApply: true
+---
+
+# Summary
+
+This is a client commission for an ARPG (art role playing game) fantasy genetics roller. It will include a breeding roller and a randomizer roller.
+
+# Stack
+
+- Vanilla JavaScript
+- NPM
+- Tailwind (w/ Tailwind CLI)
+- DaisyUI
+- Prettier
