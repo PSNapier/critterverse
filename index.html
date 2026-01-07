@@ -36,7 +36,7 @@
 		</div>
 
 		<footer class="mt-8 mb-4 text-center text-sm text-white">
-			<p>Copyright © Critterverse</p>
+			<p>Copyright © <span id="copyright-year"></span> Critterverse</p>
 			<p>
 				Website by
 				<a href="mailto:abaturestudio@gmail.com" class="footer-link"
@@ -44,6 +44,11 @@
 				>
 			</p>
 		</footer>
+
+		<script>
+			document.getElementById('copyright-year').textContent =
+				new Date().getFullYear();
+		</script>
 
 		<script src="src/js/toolbox.js"></script>
 		<script src="src/js/swapMode.js"></script>
