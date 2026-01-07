@@ -1,37 +1,45 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="breeding">
 	<meta charset="UTF-8" />
 
 	<title>Critterverse Rollers</title>
-	<meta
-		name="viewport"
-		content="width=device-width,initial-scale=1"
-	/>
-	<link
-		rel="stylesheet"
-		href="src/css/output.css"
-	/>
+	<meta name="viewport" content="width=device-width,initial-scale=1" />
+	<link rel="stylesheet" href="src/css/output.css" />
 
 	<body>
-		<div class="">
-			<h1 class="">Critterverse Rollers</h1>
-			<button
-				id="mode-switch-btn"
-				onclick="switchMode()"
-				class="btn btn-primary"
-			>
-				Switch to Randomizer
-			</button>
+		<div class="flex flex-col items-center p-4">
+			<h1 class="mb-2 text-2xl font-bold">Critterverse Rollers</h1>
+			<div class="flex flex-row gap-2">
+				<button
+					id="mode-btn-breeding"
+					onclick="setMode('breeding')"
+					class="btn"
+				>
+					Breeding
+				</button>
+				<button
+					id="mode-btn-randomizer"
+					onclick="setMode('randomizer')"
+					class="btn"
+				>
+					Randomizer
+				</button>
+			</div>
 		</div>
 
-		<div id="input"></div>
-		<div id="output"></div>
+		<div
+			id="card"
+			class="bg-selected-600 m-2 mx-auto grid min-h-[300px] max-w-[720px] grid-cols-2 gap-2 rounded-2xl p-2 transition"
+		>
+			<div id="input" class="text-white"></div>
+			<div id="output" class="rounded-2xl bg-white"></div>
+		</div>
 
 		<script src="src/js/toolbox.js"></script>
 		<script src="src/js/swapMode.js"></script>
 		<script src="src/js/dictionaries.js"></script>
-		<script src="src/js/roller/input.js"></script>
-		<script src="src/js/roller/output.js"></script>
+		<script src="src/js/breeding/input.js"></script>
+		<script src="src/js/breeding/output.js"></script>
 		<script src="src/js/randomizer/input.js"></script>
 		<script src="src/js/randomizer/output.js"></script>
 	</body>

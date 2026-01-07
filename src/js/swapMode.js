@@ -1,9 +1,9 @@
 // MODE SWITCHING
-let currentMode = 'roller';
+let currentMode = 'breeding';
 let isDOMReady = false;
 
 const modeFunctions = {
-	roller: null,
+	breeding: null,
 	randomizer: null,
 };
 
@@ -12,7 +12,12 @@ function setMode(mode) {
 		currentMode = mode;
 		modeFunctions[mode]();
 		updateModeButton();
+		updateTheme(mode);
 	}
+}
+
+function updateTheme(mode) {
+	document.documentElement.setAttribute('data-theme', mode);
 }
 
 function registerMode(mode, fn) {
@@ -20,28 +25,30 @@ function registerMode(mode, fn) {
 	if (currentMode === mode && isDOMReady) {
 		fn();
 		updateModeButton();
+		updateTheme(mode);
 	}
 }
 
 function updateModeButton() {
-	const btn = document.getElementById('mode-switch-btn');
-	if (btn) {
-		btn.textContent =
-			currentMode === 'roller'
-				? 'Switch to Randomizer'
-				: 'Switch to Roller';
-	}
-}
+	const breedingBtn = document.getElementById('mode-btn-breeding');
+	const randomizerBtn = document.getElementById('mode-btn-randomizer');
 
-function switchMode() {
-	const newMode = currentMode === 'roller' ? 'randomizer' : 'roller';
-	setMode(newMode);
+	if (breedingBtn && randomizerBtn) {
+		if (currentMode === 'breeding') {
+			breedingBtn.classList.add('btn-selected');
+			randomizerBtn.classList.remove('btn-selected');
+		} else {
+			randomizerBtn.classList.add('btn-selected');
+			breedingBtn.classList.remove('btn-selected');
+		}
+	}
 }
 
 // Initialize on DOM load
 document.addEventListener('DOMContentLoaded', () => {
 	isDOMReady = true;
 	updateModeButton();
+	updateTheme(currentMode);
 	// Render initial mode if function is registered
 	if (modeFunctions[currentMode]) {
 		modeFunctions[currentMode]();

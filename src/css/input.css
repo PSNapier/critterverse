@@ -2,6 +2,39 @@
 
 @source '../**/*.{html,js}';
 
+/* utility */
+
 .hidden {
 	display: none;
+}
+
+/* theme */
+
+:root {
+	--selected-600: rgb(219 39 119); /* pink-600 default */
+}
+
+[data-theme='breeding'] {
+	--selected-600: rgb(219 39 119); /* pink-600 */
+}
+
+[data-theme='randomizer'] {
+	--selected-600: rgb(8 145 178); /* cyan-600 */
+}
+
+.btn {
+	@apply rounded-lg bg-gray-900 p-2 font-bold text-gray-100 transition;
+}
+.btn:hover {
+	@apply scale-110 transition;
+}
+#mode-btn-breeding.btn-selected {
+	@apply bg-pink-600;
+}
+#mode-btn-randomizer.btn-selected {
+	@apply bg-cyan-600;
+}
+
+.bg-selected-600 {
+	background-color: var(--selected-600);
 }
