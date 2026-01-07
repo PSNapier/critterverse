@@ -12,27 +12,128 @@
 
 :root {
 	--selected-600: rgb(219 39 119); /* pink-600 default */
+	--selected-600-alpha: rgba(219, 39, 119, 0.6);
+	--selected-600-light: rgba(219, 39, 119, 0.3);
+	--selected-600-lighter: rgba(219, 39, 119, 0.15);
+	--selected-600-bright: rgb(236, 72, 153); /* pink-400 for highlights */
 }
 
 [data-theme='breeding'] {
 	--selected-600: rgb(219 39 119); /* pink-600 */
+	--selected-600-alpha: rgba(219, 39, 119, 0.6);
+	--selected-600-light: rgba(219, 39, 119, 0.3);
+	--selected-600-lighter: rgba(219, 39, 119, 0.15);
+	--selected-600-bright: rgb(236, 72, 153); /* pink-400 */
 }
 
 [data-theme='randomizer'] {
 	--selected-600: rgb(8 145 178); /* cyan-600 */
+	--selected-600-alpha: rgba(8, 145, 178, 0.6);
+	--selected-600-light: rgba(8, 145, 178, 0.3);
+	--selected-600-lighter: rgba(8, 145, 178, 0.15);
+	--selected-600-bright: rgb(34, 211, 238); /* cyan-400 */
 }
 
+/* animated gradient background */
+
+body {
+	min-height: 100vh;
+	background: linear-gradient(
+		135deg,
+		var(--selected-600) 0%,
+		var(--selected-600-bright) 25%,
+		var(--selected-600-alpha) 50%,
+		var(--selected-600-bright) 75%,
+		var(--selected-600) 100%
+	);
+	background-size: 200% 200%;
+	background-attachment: fixed;
+	animation: gradientShift 15s ease infinite;
+	transition:
+		background-color 0.6s ease,
+		background-image 0.6s ease;
+	will-change: background;
+}
+
+@keyframes gradientShift {
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
+}
+
+/* header styling */
+h1 {
+	@apply text-3xl font-bold text-white drop-shadow-lg;
+	letter-spacing: -0.02em;
+}
+
+/* button styling */
 .btn {
-	@apply rounded-lg bg-gray-900 p-2 font-bold text-gray-100 transition;
+	@apply rounded-xl px-6 py-3 font-semibold text-white transition-all duration-300;
+	background: rgba(255, 255, 255, 0.1);
+	backdrop-filter: blur(10px);
+	border: 2px solid rgba(255, 255, 255, 0.2);
+	box-shadow:
+		0 4px 6px -1px rgba(0, 0, 0, 0.1),
+		0 2px 4px -1px rgba(0, 0, 0, 0.06);
+	box-sizing: border-box;
 }
+
 .btn:hover {
-	@apply scale-110 transition;
+	@apply scale-105;
+	background: rgba(255, 255, 255, 0.2);
+	box-shadow:
+		0 10px 15px -3px rgba(0, 0, 0, 0.1),
+		0 4px 6px -2px rgba(0, 0, 0, 0.05);
 }
-#mode-btn-breeding.btn-selected {
-	@apply bg-pink-600;
+
+.btn:active {
+	@apply scale-100;
+	background: rgba(255, 255, 255, 0.15);
 }
-#mode-btn-randomizer.btn-selected {
-	@apply bg-cyan-600;
+
+.btn-selected {
+	background: rgba(255, 255, 255, 0.2) !important;
+	border-color: var(--selected-600-bright) !important;
+	box-shadow:
+		0 4px 14px 0 rgba(0, 0, 0, 0.2),
+		0 0 0 3px var(--selected-600-bright),
+		inset 0 0 20px rgba(255, 255, 255, 0.1) !important;
+}
+
+/* card styling - container is transparent but has shadow */
+#card {
+	background: transparent;
+	box-shadow:
+		0 20px 25px -5px rgba(0, 0, 0, 0.1),
+		0 10px 10px -5px rgba(0, 0, 0, 0.04);
+	border-radius: 1rem;
+	overflow: hidden;
+}
+
+/* input side - lighter version of bg color with left rounded corners */
+#input {
+	background: hsla(0, 0%, 100%, 0.3);
+	padding: 1rem;
+	transition: background-color 0.6s ease;
+}
+
+/* output side - white background with card effects */
+#output {
+	background: rgba(255, 255, 255, 0.9);
+	backdrop-filter: blur(20px);
+	padding: 1rem;
+}
+
+#input,
+#input * {
+	color: white;
 }
 
 .bg-selected-600 {
