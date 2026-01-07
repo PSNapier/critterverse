@@ -69,11 +69,12 @@ function setupRollButton() {
 		rollBtn.onclick = () => {
 			const mode = getCurrentMode();
 			if (modeRollFunctions[mode]) {
-				const outputDiv = document.getElementById('output');
-				const outputForm = modeRollFunctions[mode]();
-				outputDiv.innerHTML = `<pre style="text-align: center; margin: 0;">${outputForm}</pre><button id="roll-btn" class="roll-btn">Roll</button>`;
-				// Re-attach event listener to the new button
-				setupRollButton();
+				const outputContent =
+					document.getElementById('output-content');
+				if (outputContent) {
+					const outputForm = modeRollFunctions[mode]();
+					outputContent.innerHTML = `<pre style="text-align: center; margin: 0;">${outputForm}</pre>`;
+				}
 			}
 		};
 	}

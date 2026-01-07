@@ -4,14 +4,10 @@ function renderRollerInput() {
 }
 
 function updateBreedingOutput() {
-	const outputDiv = document.getElementById('output');
-	if (typeof generateBreedingOutput === 'function') {
+	const outputContent = document.getElementById('output-content');
+	if (outputContent && typeof generateBreedingOutput === 'function') {
 		const outputForm = generateBreedingOutput();
-		outputDiv.innerHTML = `<pre style="text-align: center; margin: 0;">${outputForm}</pre><button id="roll-btn" class="roll-btn">Roll</button>`;
-		// Re-attach roll button after updating output
-		if (typeof setupRollButton === 'function') {
-			setupRollButton();
-		}
+		outputContent.innerHTML = `<pre style="text-align: center; margin: 0;">${outputForm}</pre>`;
 	}
 }
 
