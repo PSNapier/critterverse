@@ -68,6 +68,7 @@ h1 {
 		0 4px 6px -1px rgba(0, 0, 0, 0.1),
 		0 2px 4px -1px rgba(0, 0, 0, 0.06);
 	box-sizing: border-box;
+	cursor: pointer;
 }
 
 .btn:hover {
@@ -113,6 +114,41 @@ h1 {
 	background: rgba(255, 255, 255, 0.95);
 	backdrop-filter: blur(20px);
 	padding: 1rem;
+	display: flex;
+	flex-direction: column;
+	position: relative;
+}
+
+/* roll button - ghost button at bottom center */
+.roll-btn {
+	@apply rounded-xl px-4 py-1 font-semibold transition-all duration-300;
+	background: transparent;
+	border: 2px solid var(--selected-600);
+	color: var(--selected-600);
+	margin-top: auto;
+	align-self: center;
+	cursor: pointer;
+}
+
+.roll-btn:hover {
+	background: var(--selected-600);
+	@apply transition;
+	color: white;
+}
+
+.roll-btn:active {
+	@apply transition;
+	filter: opacity(0.5);
+}
+
+/* randomizer mode - output fills entire card */
+[data-theme='randomizer'] #input {
+	display: none;
+}
+
+[data-theme='randomizer'] #output {
+	grid-column: 1 / -1;
+	border-radius: 1rem;
 }
 
 /* mobile responsive - stack vertically */

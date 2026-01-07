@@ -37,6 +37,12 @@ const dict = {
 		['sun', 'Sn'],
 		['volcanic', 'Vo'],
 	],
+	genesAppy: [
+		['blanket', 'PATN1'],
+		['leopard', 'PATN1PATN1'],
+		['snowcap', 'PATN2'],
+		['fewspot', 'PATN2PATN2'],
+	],
 	genesRealistic: [
 		['appaloosa', 'Ap'],
 		['birdcatcher', 'Bc'],
@@ -88,12 +94,6 @@ const dict = {
 		['trailing', 'Tr'],
 		['vent', 'Vt'],
 		['vest', 'Ve'],
-	],
-	genesAppy: [
-		['blanket', 'PATN1'],
-		['leopard', 'PATN1PATN1'],
-		['snowcap', 'PATN2'],
-		['fewspot', 'PATN2PATN2'],
 	],
 	genesCarrier: [
 		['mosaic', 'Mo'],

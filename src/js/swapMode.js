@@ -2,6 +2,10 @@
 let currentMode = 'breeding';
 let isDOMReady = false;
 
+function getCurrentMode() {
+	return currentMode;
+}
+
 const modeFunctions = {
 	breeding: null,
 	randomizer: null,
