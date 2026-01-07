@@ -147,3 +147,19 @@ h1 {
 .bg-selected-600 {
 	background-color: var(--selected-600);
 }
+
+/* footer styling */
+footer {
+	opacity: 0.9;
+}
+
+.footer-link {
+	color: white;
+	text-decoration: underline;
+	text-decoration-color: rgba(255, 255, 255, 0.5);
+	transition: text-decoration-color 0.3s ease;
+}
+
+.footer-link:hover {
+	text-decoration-color: rgba(255, 255, 255, 1);
+}
