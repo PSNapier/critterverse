@@ -3,7 +3,6 @@ function renderRollerInput() {
 		`Sire: <input type="text" id="sire-geno"/><br>Dam: <input type="text" id="dam-geno" />`;
 	document.getElementById('sire-geno').value = 'S+XZ/nLi';
 	document.getElementById('dam-geno').value = 'ZX/nVo';
-	updateBreedingOutput();
 }
 
 function updateBreedingOutput() {
@@ -15,7 +14,7 @@ function updateBreedingOutput() {
 }
 
 // Register with swapMode using centralized helper
-registerModeHelper('breeding', renderRollerInput, updateBreedingOutput, () => {
+registerModeHelper('breeding', renderRollerInput, null, () => {
 	if (typeof generateBreedingOutput === 'function') {
 		return generateBreedingOutput();
 	}

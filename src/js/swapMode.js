@@ -1,4 +1,5 @@
 // MODE SWITCHING
+const DEFAULT_OUTPUT_MESSAGE = 'Click roll to begin!';
 let currentMode = 'breeding';
 let isDOMReady = false;
 
@@ -16,6 +17,11 @@ function setMode(mode) {
 		modeFunctions[mode]();
 		updateModeButton();
 		updateTheme(mode);
+		// Set default output content
+		const outputContent = document.getElementById('output-content');
+		if (outputContent) {
+			outputContent.innerHTML = DEFAULT_OUTPUT_MESSAGE;
+		}
 		// Run setup function if available
 		if (modeSetupFunctions[mode]) {
 			modeSetupFunctions[mode]();
@@ -41,6 +47,11 @@ function registerMode(mode, renderFn, setupFn, rollFn) {
 		renderFn();
 		updateModeButton();
 		updateTheme(mode);
+		// Set default output content
+		const outputContent = document.getElementById('output-content');
+		if (outputContent) {
+			outputContent.innerHTML = DEFAULT_OUTPUT_MESSAGE;
+		}
 		if (setupFn) {
 			setupFn();
 		}
@@ -122,6 +133,11 @@ document.addEventListener('DOMContentLoaded', () => {
 	isDOMReady = true;
 	updateModeButton();
 	updateTheme(currentMode);
+	// Set default output content
+	const outputContent = document.getElementById('output-content');
+	if (outputContent) {
+		outputContent.innerHTML = 'Click roll to begin!';
+	}
 	// Render initial mode if function is registered
 	if (modeFunctions[currentMode]) {
 		modeFunctions[currentMode]();

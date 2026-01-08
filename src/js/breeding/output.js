@@ -1,5 +1,5 @@
 let items = {
-	bouquetOfFlowers: true,
+	bouquetOfFlowers: false,
 };
 
 function Parent(parent) {
@@ -8,13 +8,17 @@ function Parent(parent) {
 let sire = {};
 let dam = {};
 
-let critter = {
-	geno: '',
-};
+function Critter() {
+	this.mutation = '';
+	this.species = '';
+	this.sex = '';
+	this.pheno = '';
+	this.geno = '';
+}
 
 function rollClutchSize() {
 	if (items.bouquetOfFlowers) {
-		return 10;
+		return 4;
 	}
 	const x = rng(100);
 	if (x <= 20) {
@@ -77,22 +81,20 @@ function generateBreedingOutput() {
 
 	const clutchSize = rollClutchSize();
 
-	// Temp values for now
-	const mutation = '[Mutation]';
-	const species = 'Species';
-	const sex = 'Sex';
-	const pheno = 'Pheno';
-	const carredPheno = 'Carried Pheno';
-	const geno = 'Geno';
-
 	const critters = [];
 	for (let i = 0; i < clutchSize; i++) {
-		const geno = rollGenoBase();
-		const critterForm = `${mutation} ${species} | ${sex}
-${pheno} (${carredPheno})
-${geno}`;
-		critters.push(critterForm);
+		const critter = new Critter();
+		critter.geno = rollGenoBase();
+		critters.push(critter);
 	}
 
-	return critters.join('\n\n');
+	const output = [];
+	for (const critter of critters) {
+		const critterForm = `${critter.mutation || '[Mutation]'} ${critter.species || 'Species'} | ${critter.sex || 'Sex'}
+${critter.pheno || 'Pheno'}
+${critter.geno || 'Geno'}`;
+		output.push(critterForm);
+	}
+
+	return output.join('\n\n');
 }
