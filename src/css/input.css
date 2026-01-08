@@ -100,7 +100,6 @@ h1 {
 		0 20px 25px -5px rgba(0, 0, 0, 0.1),
 		0 10px 10px -5px rgba(0, 0, 0, 0.04);
 	border-radius: 1rem;
-	overflow: hidden;
 }
 
 /* input side - lighter version of bg color with left rounded corners */
@@ -108,16 +107,20 @@ h1 {
 	background: hsla(0, 0%, 100%, 0.4);
 	padding: 1rem;
 	transition: background-color 0.6s ease;
+	border-radius: 1rem 0rem 0rem 1rem;
+	min-height: 0px;
 }
 
 /* output side - white background with card effects */
 #output {
 	background: rgba(255, 255, 255, 0.95);
-	backdrop-filter: blur(20px);
 	padding: 1rem;
-	display: flex;
-	flex-direction: column;
-	position: relative;
+	border-radius: 0rem 1rem 1rem 0rem;
+	min-height: 0px;
+}
+#output-content {
+	overflow: auto;
+	white-space: pre;
 }
 
 /* roll button - ghost button at bottom center */
@@ -193,27 +196,4 @@ input[type='text'] {
 
 .bg-selected-600 {
 	background-color: var(--selected-600);
-}
-
-/* footer styling */
-footer {
-	opacity: 0.9;
-	position: fixed;
-	bottom: 0;
-	left: 50%;
-	transform: translateX(-50%);
-	width: 100%;
-	text-align: center;
-	padding-bottom: 1rem;
-}
-
-.footer-link {
-	color: white;
-	text-decoration: underline;
-	text-decoration-color: rgba(255, 255, 255, 0.5);
-	transition: text-decoration-color 0.3s ease;
-}
-
-.footer-link:hover {
-	text-decoration-color: rgba(255, 255, 255, 1);
 }

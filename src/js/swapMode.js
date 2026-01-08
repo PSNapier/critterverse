@@ -73,7 +73,7 @@ function setupRollButton() {
 					document.getElementById('output-content');
 				if (outputContent) {
 					const outputForm = modeRollFunctions[mode]();
-					outputContent.innerHTML = `<pre style="text-align: center; margin: 0;">${outputForm}</pre>`;
+					outputContent.innerHTML = `${outputForm}`;
 				}
 			}
 		};

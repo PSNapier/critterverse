@@ -43,6 +43,43 @@ function matchy(str, pattern) {
 	const result = str.match(pattern);
 	return result || [''];
 }
+
+function rollGene(sireGeno, damGeno, gene) {
+	const dom = `${gene[1]}${gene[1]}`;
+	const rec = `n${gene[1]}`;
+	const basePattern = new RegExp(`(${dom}|${rec})`);
+	const sireGenoMatch = matchy(sireGeno, basePattern)[0];
+	const damGenoMatch = matchy(damGeno, basePattern)[0];
+
+	const x = rng(100);
+	if (sireGenoMatch === dom && damGenoMatch === dom) {
+		return dom;
+	} else if (
+		(sireGenoMatch === dom && damGenoMatch === rec) ||
+		(sireGenoMatch === rec && damGenoMatch === dom)
+	) {
+		if (x <= 50) {
+			return dom;
+		} else {
+			return '';
+		}
+	} else if (sireGenoMatch === rec && damGenoMatch === rec) {
+		if (x <= 25) {
+			return dom;
+		} else if (x <= 75) {
+			return rec;
+		} else {
+			return '';
+		}
+	} else if (sireGenoMatch === rec || damGenoMatch === rec) {
+		if (x <= 50) {
+			return rec;
+		} else {
+			return '';
+		}
+	}
+	return '';
+}
 // let a = ['a', 1, 'a', 2, '1'];
 // let unique = a.filter( onlyUnique );// returns ['a', 1, 2, '1']
 

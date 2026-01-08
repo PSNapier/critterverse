@@ -11,5 +11,8 @@ This is a client commission for an ARPG (art role playing game) fantasy genetics
 - Vanilla JavaScript
 - NPM
 - Tailwind (w/ Tailwind CLI)
-- DaisyUI
 - Prettier
+
+# Styling
+
+Always prefer Tailwind over vanilla CSS, only utilize vanilla CSS if there is not a way to do it with Tailwind. When you do have to utilize vanilla CSS prefer to use @apply rules that utilize Tailwind classes.
