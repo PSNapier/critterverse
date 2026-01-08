@@ -27,6 +27,22 @@ function randomizer(array) {
 function onlyUnique(value, index, self) {
 	return self.indexOf(value) === index;
 }
+
+function punnetSquare(parent1, parent2) {
+	let punnetResults = [];
+	for (let i = 0; i < parent1.length; i++) {
+		for (let j = 0; j < parent2.length; j++) {
+			const combo = parent1[i] + parent2[j];
+			punnetResults.push(combo);
+		}
+	}
+	return punnetResults;
+}
+
+function matchy(str, pattern) {
+	const result = str.match(pattern);
+	return result || [''];
+}
 // let a = ['a', 1, 'a', 2, '1'];
 // let unique = a.filter( onlyUnique );// returns ['a', 1, 2, '1']
 
