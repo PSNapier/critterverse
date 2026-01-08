@@ -1,3 +1,7 @@
+let items = {
+	bouquetOfFlowers: true,
+};
+
 function Parent(parent) {
 	this.geno = document.getElementById(`${parent}-geno`).value || '';
 }
@@ -8,11 +12,28 @@ let critter = {
 	geno: '',
 };
 
+function rollClutchSize() {
+	if (items.bouquetOfFlowers) {
+		return 10;
+	}
+	const x = rng(100);
+	if (x <= 20) {
+		return 1;
+	} else if (x <= 60) {
+		return 2;
+	} else if (x <= 90) {
+		return 3;
+	} else {
+		return 4;
+	}
+}
+
 function rollGenoBase() {
 	let output = {
 		xz: '',
 		special: '',
 		lightShade: [],
+		modifiers: [],
 	};
 
 	// roll XZ base
@@ -29,27 +50,32 @@ function rollGenoBase() {
 	);
 
 	// roll lightened/shaded
-	// for (const gene of dict.genesLightShade) {
-	// 	const basePattern = new RegExp(
-	// 		`(${gene[1]}${gene[1]}|(?<=n)${gene[1]})`
-	// 	);
-	// 	const sireGenoMatch = matchy(sire.geno, basePattern)[0];
-	// 	const damGenoMatch = matchy(dam.geno, basePattern)[0];
-	// 	console.log(sireGenoMatch, damGenoMatch);
-	// 	output.lightShade = randomizer();
-	// }
+	for (const gene of dict.genesLightShade) {
+		const result = rollGene(sire.geno, dam.geno, gene);
+		if (result) {
+			output.lightShade.push(result);
+		}
+	}
 
 	// roll modifiers
+	for (const gene of dict.genesModifiers) {
+		const result = rollGene(sire.geno, dam.geno, gene);
+		if (result) {
+			output.modifiers.push(result);
+		}
+	}
 
 	// tidy
-	return `${output.special}${output.xz}`;
+	return `${output.special}${output.xz}${
+		output.lightShade.length > 0 ? '/' + output.lightShade.join('/') : ''
+	}${output.modifiers.length > 0 ? '/' + output.modifiers.join('/') : ''}`;
 }
 
 function generateBreedingOutput() {
 	sire = new Parent('sire');
 	dam = new Parent('dam');
 
-	rollGenoBase();
+	const clutchSize = rollClutchSize();
 
 	// Temp values for now
 	const mutation = '[Mutation]';
@@ -59,9 +85,14 @@ function generateBreedingOutput() {
 	const carredPheno = 'Carried Pheno';
 	const geno = 'Geno';
 
-	const outputForm = `${mutation} ${species} | ${sex}
+	const critters = [];
+	for (let i = 0; i < clutchSize; i++) {
+		const geno = rollGenoBase();
+		const critterForm = `${mutation} ${species} | ${sex}
 ${pheno} (${carredPheno})
-${rollGenoBase()}`;
+${geno}`;
+		critters.push(critterForm);
+	}
 
-	return outputForm;
+	return critters.join('\n\n');
 }
