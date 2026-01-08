@@ -8,7 +8,6 @@ function renderRollerInput() {
 
 function populateItems() {
 	for (const item of dict.items) {
-		console.log(item);
 		const label = document.createElement('label');
 		const checkbox = document.createElement('input');
 		checkbox.type = 'checkbox';

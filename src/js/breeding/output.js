@@ -1,6 +1,11 @@
-let items = {
-	bouquetOfFlowers: false,
-};
+function checkItems() {
+	this.pinkRose = isChecked('pink-rose');
+	this.blueRose = isChecked('blue-rose');
+	this.bouquetOfFlowers = isChecked('bouquet-of-flowers');
+	this.strangeVial = isChecked('strange-vial');
+	this.enchantedTablet = isChecked('enchanted-tablet');
+}
+let items = {};
 
 function Parent(parent) {
 	this.geno = document.getElementById(`${parent}-geno`).value || '';
@@ -76,6 +81,7 @@ function rollGenoBase() {
 }
 
 function generateBreedingOutput() {
+	items = new checkItems();
 	sire = new Parent('sire');
 	dam = new Parent('dam');
 

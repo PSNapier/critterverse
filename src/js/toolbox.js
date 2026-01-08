@@ -44,6 +44,10 @@ function matchy(str, pattern) {
 	return result || [''];
 }
 
+function isChecked(elementId) {
+	return document.getElementById(elementId).checked ? true : false;
+}
+
 function rollGene(sireGeno, damGeno, gene) {
 	const dom = `${gene[1]}${gene[1]}`;
 	const rec = `n${gene[1]}`;
