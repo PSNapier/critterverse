@@ -22,6 +22,17 @@ function generateRandomCritter() {
 						genePool.splice(genePool.indexOf(picked), 1);
 					}
 				}
+				for (let i = 0; i < selected.length; i++) {
+					const gene = selected[i];
+					const x = rng(100);
+					if (x <= 10) {
+						// dom form
+						selected[i] = `${gene}${gene}`;
+					} else {
+						// rec form
+						selected[i] = `n${gene}`;
+					}
+				}
 				return selected;
 			})(),
 		].filter(Boolean),

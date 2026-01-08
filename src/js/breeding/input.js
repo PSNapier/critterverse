@@ -1,3 +1,6 @@
+const DAM_GENO_DEFAULT = 'ZX/nVo/nBi';
+const SIRE_GENO_DEFAULT = 'S+XZ/nLi/nIb';
+
 function renderRollerInput() {
 	// Preserve checkbox states before clearing
 	const checkboxStates = {};
@@ -11,8 +14,8 @@ function renderRollerInput() {
 
 	document.getElementById('input').innerHTML =
 		`<span class="font-semibold">Sire:</span> <input type="text" id="sire-geno"/><br><span class="font-semibold">Dam:</span> <input type="text" id="dam-geno"/><br><br>`;
-	document.getElementById('sire-geno').value = 'S+XZ/nLi';
-	document.getElementById('dam-geno').value = 'ZX/nVo';
+	document.getElementById('sire-geno').value = SIRE_GENO_DEFAULT;
+	document.getElementById('dam-geno').value = DAM_GENO_DEFAULT;
 	populateItems();
 
 	const sireGenoInput = document.getElementById('sire-geno');

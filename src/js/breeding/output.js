@@ -120,9 +120,40 @@ function rollGenoBase() {
 	}${output.modifiers.length > 0 ? '/' + output.modifiers.join('/') : ''}`;
 }
 
+function rollGenoCont() {
+	let output = {
+		appy: [],
+		realistic: [],
+		carrier: [],
+	};
+
+	// roll realistic
+	for (const gene of dict.genesRealistic) {
+		const result = rollGene(sire.geno, dam.geno, gene);
+		if (result) {
+			output.realistic.push(result);
+		}
+	}
+
+	// roll carrier
+	for (const gene of dict.genesCarrier) {
+		const result = rollGene(sire.geno, dam.geno, gene);
+		if (result) {
+			output.carrier.push(result);
+		}
+	}
+
+	return [
+		output.appy.join('/'),
+		output.realistic.join('/'),
+		output.carrier.join('/'),
+	]
+		.filter(Boolean)
+		.join('/');
+}
+
 function generateBreedingOutput() {
 	items = new checkItems();
-	console.log(items.enchantedTabletSpecies);
 	sire = new Parent('sire');
 	dam = new Parent('dam');
 
@@ -134,7 +165,10 @@ function generateBreedingOutput() {
 		critter.mutation = rollMutation().capitalizeStr();
 		critter.species = rollSpecies().capitalizeStr();
 		critter.sex = rollSex().capitalizeStr();
-		critter.geno = rollGenoBase();
+		const base = rollGenoBase();
+		const cont = rollGenoCont();
+		critter.geno =
+			cont && cont.length > 0 ? `${base}/${cont}` : `${base}`;
 		critters.push(critter);
 	}
 
