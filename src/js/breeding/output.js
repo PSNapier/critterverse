@@ -49,6 +49,11 @@ function rollMutation() {
 	if (items.strangeVial) {
 		return randomizer(dict.mutations);
 	}
+	const x = rng(100);
+	if (x <= 5) {
+		return randomizer(dict.mutations);
+	} else if (x <= 15) {
+	}
 	return '';
 }
 
@@ -57,6 +62,15 @@ function rollSpecies() {
 		return items.enchantedTabletSpecies;
 	}
 	return randomizer([sire.species, dam.species]);
+}
+
+function rollSex() {
+	if (items.pinkRose) {
+		return 'female';
+	} else if (items.blueRose) {
+		return 'male';
+	}
+	return randomizer(['male', 'female']);
 }
 
 function rollGenoBase() {
@@ -115,6 +129,7 @@ function generateBreedingOutput() {
 		const critter = new Critter();
 		critter.mutation = rollMutation().capitalizeStr();
 		critter.species = rollSpecies().capitalizeStr();
+		critter.sex = rollSex().capitalizeStr();
 		critter.geno = rollGenoBase();
 		critters.push(critter);
 	}

@@ -15,26 +15,25 @@ function renderRollerInput() {
 	document.getElementById('dam-geno').value = 'ZX/nVo';
 	populateItems();
 
-	function createSpeciesSelect(prefix) {
-		const select = document.createElement('select');
-		select.id = `${prefix}-species`;
-		select.className =
-			'ml-2 mb-2 rounded border px-2 py-1 text-sm align-middle';
+	const sireGenoInput = document.getElementById('sire-geno');
+	const sireLineBreak = document.createElement('br');
+	sireGenoInput.insertAdjacentElement('afterend', sireLineBreak);
+	const sireMutationSelect = createSelect(
+		'sire',
+		'mutation',
+		dict.mutations
+	);
+	sireLineBreak.insertAdjacentElement('afterend', sireMutationSelect);
+	const sireSpeciesSelect = createSelect('sire', 'species', dict.species);
+	sireMutationSelect.insertAdjacentElement('afterend', sireSpeciesSelect);
 
-		dict.species.forEach((species) => {
-			const option = document.createElement('option');
-			option.value = species;
-			option.innerText =
-				species.charAt(0).toUpperCase() + species.slice(1);
-			select.appendChild(option);
-		});
-
-		const input = document.getElementById(`${prefix}-geno`);
-		input.insertAdjacentElement('afterend', select);
-	}
-
-	createSpeciesSelect('sire');
-	createSpeciesSelect('dam');
+	const damGenoInput = document.getElementById('dam-geno');
+	const damLineBreak = document.createElement('br');
+	damGenoInput.insertAdjacentElement('afterend', damLineBreak);
+	const damMutationSelect = createSelect('dam', 'mutation', dict.mutations);
+	damLineBreak.insertAdjacentElement('afterend', damMutationSelect);
+	const damSpeciesSelect = createSelect('dam', 'species', dict.species);
+	damMutationSelect.insertAdjacentElement('afterend', damSpeciesSelect);
 
 	// Restore checkbox states
 	for (const [checkboxId, checked] of Object.entries(checkboxStates)) {
@@ -50,44 +49,24 @@ function renderRollerInput() {
 	if (enchantedTabletCheckbox && enchantedTabletCheckbox.checked) {
 		// Avoid duplicate dropdowns
 		if (!document.getElementById('enchanted-tablet-selection')) {
-			const selectWrapper = document.createElement('div');
-			selectWrapper.className = 'mb-2';
-
-			const selectLabel = document.createElement('label');
-			selectLabel.htmlFor = 'enchanted-tablet-selection';
-			selectLabel.className = 'mr-2';
-			selectLabel.innerText = 'Select species:';
-
-			const select = document.createElement('select');
-			select.id = 'enchanted-tablet-selection';
+			const select = createSelect(
+				'enchanted-tablet',
+				'selection',
+				dict.species
+			);
 			select.className = 'ml-2 rounded border px-2 text-sm';
 
-			dict.species.forEach((species) => {
-				const option = document.createElement('option');
-				option.value = species;
-				option.innerText =
-					species.charAt(0).toUpperCase() + species.slice(1);
-				select.appendChild(option);
-			});
-
-			selectWrapper.appendChild(selectLabel);
-			selectWrapper.appendChild(select);
-
-			// Insert after enchanted-tablet checkbox label (not inside it)
-			const enchantedTabletLabel =
-				enchantedTabletCheckbox.parentElement;
-			if (enchantedTabletLabel && enchantedTabletLabel.parentElement) {
-				enchantedTabletLabel.parentElement.insertBefore(
-					selectWrapper,
-					enchantedTabletLabel.nextSibling
-				);
-			}
+			// Insert right after the checkbox, inside the same label
+			enchantedTabletCheckbox.insertAdjacentElement(
+				'afterend',
+				select
+			);
 		}
 	} else {
 		// If not checked and dropdown exists, remove it
 		const select = document.getElementById('enchanted-tablet-selection');
 		if (select && select.parentElement) {
-			select.parentElement.remove(); // remove wrapper div
+			select.remove();
 		}
 	}
 
@@ -112,7 +91,7 @@ function populateItems() {
 		checkbox.id = checkboxId;
 		label.appendChild(document.createTextNode(item + ': '));
 		label.appendChild(checkbox);
-		label.className = 'block mb-1';
+		label.className = 'block mb-1 text-sm';
 		document.getElementById('input').appendChild(label);
 	}
 }

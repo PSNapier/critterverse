@@ -194,7 +194,6 @@ input[type='text'] {
 	color: #1f2937;
 	border-radius: 0.375rem;
 	padding-left: 0.25rem;
-	margin-bottom: 0.5rem;
 	font-size: 1rem;
 }
 
@@ -222,6 +221,13 @@ input[type='checkbox']:checked::after {
 
 .bg-selected-600 {
 	background-color: var(--selected-600);
+}
+
+/* select dropdown styling - compact to match line height */
+#input select {
+	padding: 0px;
+	margin: 0px;
+	margin-left: 0.4rem;
 }
 
 /* select dropdown options styling - only affects the dropdown menu */

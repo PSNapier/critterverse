@@ -104,3 +104,19 @@ String.prototype.capitalizeStr = function () {
 		return a.toUpperCase();
 	});
 };
+
+function createSelect(prefix, type, options) {
+	const select = document.createElement('select');
+	select.id = `${prefix}-${type}`;
+	select.className = 'ml-2 mb-2 rounded border px-1 text-sm align-middle';
+
+	options.forEach((option) => {
+		const optionElement = document.createElement('option');
+		optionElement.value = option;
+		optionElement.innerText =
+			option.charAt(0).toUpperCase() + option.slice(1);
+		select.appendChild(optionElement);
+	});
+
+	return select;
+}
