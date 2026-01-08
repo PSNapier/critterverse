@@ -18,11 +18,17 @@ function renderRollerInput() {
 	const sireGenoInput = document.getElementById('sire-geno');
 	const sireLineBreak = document.createElement('br');
 	sireGenoInput.insertAdjacentElement('afterend', sireLineBreak);
-	const sireMutationSelect = createSelect(
-		'sire',
-		'mutation',
-		dict.mutations
+	const sireMutationSelect = createSelect('sire', 'mutation', [
+		'No Mutation',
+		...dict.mutations,
+	]);
+	// Set "No Mutation" option value to empty string
+	const sireNoMutationOption = Array.from(sireMutationSelect.options).find(
+		(opt) => opt.text === 'No Mutation'
 	);
+	if (sireNoMutationOption) {
+		sireNoMutationOption.value = '';
+	}
 	sireLineBreak.insertAdjacentElement('afterend', sireMutationSelect);
 	const sireSpeciesSelect = createSelect('sire', 'species', dict.species);
 	sireMutationSelect.insertAdjacentElement('afterend', sireSpeciesSelect);
@@ -30,7 +36,17 @@ function renderRollerInput() {
 	const damGenoInput = document.getElementById('dam-geno');
 	const damLineBreak = document.createElement('br');
 	damGenoInput.insertAdjacentElement('afterend', damLineBreak);
-	const damMutationSelect = createSelect('dam', 'mutation', dict.mutations);
+	const damMutationSelect = createSelect('dam', 'mutation', [
+		'No Mutation',
+		...dict.mutations,
+	]);
+	// Set "No Mutation" option value to empty string
+	const damNoMutationOption = Array.from(damMutationSelect.options).find(
+		(opt) => opt.text === 'No Mutation'
+	);
+	if (damNoMutationOption) {
+		damNoMutationOption.value = '';
+	}
 	damLineBreak.insertAdjacentElement('afterend', damMutationSelect);
 	const damSpeciesSelect = createSelect('dam', 'species', dict.species);
 	damMutationSelect.insertAdjacentElement('afterend', damSpeciesSelect);

@@ -14,6 +14,7 @@ let items = {};
 
 function Parent(parent) {
 	this.geno = document.getElementById(`${parent}-geno`).value || '';
+	this.mutation = document.getElementById(`${parent}-mutation`).value || '';
 	this.species = document.getElementById(`${parent}-species`).value || '';
 }
 let sire = {};
@@ -53,6 +54,9 @@ function rollMutation() {
 	if (x <= 5) {
 		return randomizer(dict.mutations);
 	} else if (x <= 15) {
+		return sire.mutation;
+	} else if (x <= 25) {
+		return dam.mutation;
 	}
 	return '';
 }
