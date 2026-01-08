@@ -219,3 +219,15 @@ input[type='checkbox']:checked::after {
 .bg-selected-600 {
 	background-color: var(--selected-600);
 }
+
+/* select dropdown options styling - only affects the dropdown menu */
+#input select option {
+	color: #111827 !important; /* gray-900 */
+	background-color: white;
+}
+
+#input select option:checked,
+#input select option:hover {
+	background-color: var(--selected-600) !important;
+	color: white !important;
+}

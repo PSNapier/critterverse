@@ -4,11 +4,17 @@ function checkItems() {
 	this.bouquetOfFlowers = isChecked('bouquet-of-flowers');
 	this.strangeVial = isChecked('strange-vial');
 	this.enchantedTablet = isChecked('enchanted-tablet');
+	this.enchantedTabletSpecies = document.getElementById(
+		'enchanted-tablet-selection'
+	)
+		? document.getElementById('enchanted-tablet-selection').value
+		: '';
 }
 let items = {};
 
 function Parent(parent) {
 	this.geno = document.getElementById(`${parent}-geno`).value || '';
+	this.species = document.getElementById(`${parent}-species`).value || '';
 }
 let sire = {};
 let dam = {};
@@ -22,7 +28,9 @@ function Critter() {
 }
 
 function rollClutchSize() {
-	if (items.bouquetOfFlowers) {
+	if (items.strangeVial) {
+		return 1;
+	} else if (items.bouquetOfFlowers) {
 		return 4;
 	}
 	const x = rng(100);
@@ -35,6 +43,20 @@ function rollClutchSize() {
 	} else {
 		return 4;
 	}
+}
+
+function rollMutation() {
+	if (items.strangeVial) {
+		return randomizer(dict.mutations);
+	}
+	return '';
+}
+
+function rollSpecies() {
+	if (items.enchantedTablet) {
+		return items.enchantedTabletSpecies;
+	}
+	return randomizer([sire.species, dam.species]);
 }
 
 function rollGenoBase() {
@@ -82,6 +104,7 @@ function rollGenoBase() {
 
 function generateBreedingOutput() {
 	items = new checkItems();
+	console.log(items.enchantedTabletSpecies);
 	sire = new Parent('sire');
 	dam = new Parent('dam');
 
@@ -90,13 +113,15 @@ function generateBreedingOutput() {
 	const critters = [];
 	for (let i = 0; i < clutchSize; i++) {
 		const critter = new Critter();
+		critter.mutation = rollMutation().capitalizeStr();
+		critter.species = rollSpecies().capitalizeStr();
 		critter.geno = rollGenoBase();
 		critters.push(critter);
 	}
 
 	const output = [];
 	for (const critter of critters) {
-		const critterForm = `${critter.mutation || '[Mutation]'} ${critter.species || 'Species'} | ${critter.sex || 'Sex'}
+		const critterForm = `${critter.mutation ? '[' + critter.mutation + '] ' : ''}${critter.species || 'Species'} | ${critter.sex || 'Sex'}
 ${critter.pheno || 'Pheno'}
 ${critter.geno || 'Geno'}`;
 		output.push(critterForm);
