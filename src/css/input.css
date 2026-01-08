@@ -194,6 +194,28 @@ input[type='text'] {
 	font-size: 1rem;
 }
 
+/* checkbox styling - match text input */
+input[type='checkbox'] {
+	@apply appearance-none;
+	background-color: rgba(255, 255, 255, 0.3);
+	border-radius: 0.375rem;
+	width: 1.25rem;
+	height: 1.25rem;
+	@apply mb-1 align-middle;
+	cursor: pointer;
+	position: relative;
+}
+input[type='checkbox']:checked::after {
+	content: 'X';
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	color: rgba(255, 255, 255, 0.9);
+	font-size: 0.875rem;
+	font-weight: bold;
+}
+
 .bg-selected-600 {
 	background-color: var(--selected-600);
 }

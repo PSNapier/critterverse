@@ -1,4 +1,11 @@
 const dict = {
+	items: [
+		'Pink Rose',
+		'Blue Rose',
+		'Bouquet of Flowers',
+		'Strange Vial',
+		'Enchanted Tablet',
+	],
 	species: [
 		'howler',
 		'runeterik',
