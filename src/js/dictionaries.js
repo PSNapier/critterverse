@@ -29,6 +29,10 @@ const dict = {
 		['black', 'ZZ'],
 	],
 	genesSpecial: [['special', 'S+']],
+	genesLightShade: [
+		['lightened', 'Li'],
+		['shaded', 'Sh'],
+	],
 	genesModifiers: [
 		['fire', 'Fr'],
 		['moss', 'Ms'],
