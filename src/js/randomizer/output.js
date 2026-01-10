@@ -5,7 +5,7 @@ function generateRandomCritter() {
 		sex: randomizer(['male', 'female']),
 		genoBase: [
 			[
-				rng(100) <= 5 ? '+S' : '',
+				rng(100) <= 5 ? 'S+' : '',
 				randomizer(dict.genesBase.map((g) => g[1])),
 			].join(''),
 			(() => {
