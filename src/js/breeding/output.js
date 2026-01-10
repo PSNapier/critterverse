@@ -132,6 +132,9 @@ function rollGenoCont() {
 		const result = rollGene(sire.geno, dam.geno, gene);
 		if (result) {
 			output.realistic.push(result);
+			if (gene[1] === 'Ap') {
+				// appy pattern
+			}
 		}
 	}
 
@@ -153,23 +156,23 @@ function rollGenoCont() {
 }
 
 function phenoReader(geno) {
-	let output = [];
+	let base = [];
 	let carrier = [];
 
 	// base
 	for (const gene of dict.genesBase) {
 		if (geno.includes(gene[1])) {
-			output.push(gene[0]);
+			base.push(gene[0]);
 		}
 	}
 
 	// base special & lightshade
 	if (geno.search(/S\+/) !== -1) {
-		output.unshift('special');
+		base.unshift('special');
 	}
 	let lightShade = [];
 	for (const gene of dict.genesLightShade) {
-		if (output.includes('special')) {
+		if (base.includes('special')) {
 			carrier.push(gene[0]);
 		} else {
 			if (geno.includes(gene[1])) {
@@ -179,24 +182,85 @@ function phenoReader(geno) {
 	}
 	if (lightShade.length > 1) {
 		let chosen = randomizer(lightShade);
-		output.unshift(chosen);
+		base.unshift(chosen);
 		lightShade.splice(lightShade.indexOf(chosen), 1);
 		carrier = lightShade;
 	}
 
 	// base modifiers
+	let modifiersDom = [];
+	let modifiersRec = [];
+	let modifier = '';
+	let modifiersCarried = [];
 	for (const gene of dict.genesModifiers) {
+		let dom = `${gene[1]}${gene[1]}`;
+		let rec = `n${gene[1]}`;
+		if (geno.includes(dom)) {
+			modifiersDom.push(gene[0]);
+		} else if (geno.includes(rec)) {
+			modifiersRec.push(gene[0]);
+		}
+	}
+	if (modifiersDom.length > 0) {
+		modifier = randomizer(modifiersDom);
+		const index = modifiersDom.indexOf(modifier);
+		if (index !== -1) {
+			modifiersDom.splice(index, 1);
+		}
+		modifiersCarried = [...modifiersDom, ...modifiersRec];
+	} else if (modifiersRec.length > 0) {
+		modifier = randomizer(modifiersRec);
+		const index = modifiersRec.indexOf(modifier);
+		if (index !== -1) {
+			modifiersRec.splice(index, 1);
+		}
+		modifiersCarried = [...modifiersRec];
+	}
+	if (modifier) {
+		base.push(modifier);
+	}
+	carrier = [...carrier, ...modifiersCarried];
+
+	// cont realistic
+	let cont = [];
+	for (const gene of dict.genesRealistic) {
 		if (geno.includes(gene[1])) {
-			output.push(gene[0]);
+			cont.push(gene[0]);
+			if (gene[1] === 'Ap') {
+				for (const appy of dict.genesAppy) {
+					if (geno.includes(appy[1])) {
+						cont.push(appy[0]);
+					}
+				}
+			}
+		}
+	}
+
+	// cont carrier
+	for (const gene of dict.genesCarrier) {
+		const dom = `${gene[1]}${gene[1]}`;
+		const rec = `n${gene[1]}`;
+		if (geno.includes(dom)) {
+			cont.push(gene[0]);
+		} else if (geno.includes(rec)) {
+			carrier.push(gene[0]);
 		}
 	}
 
 	// output
-	let outputString = output.map((o) => o.capitalizeStr()).join(' ');
+	let baseString = base.map((o) => o.capitalizeStr()).join(' ');
+	let contString = cont.map((c) => c.capitalizeStr()).join(', ');
 	let carrierString = carrier.map((c) => c.capitalizeStr()).join(', ');
-	return carrier.length > 0
-		? `${outputString} (Carries ${carrierString})`
-		: outputString;
+
+	let output = baseString;
+	if (cont.length > 0) {
+		output += ` and ${contString}`;
+	}
+	if (carrier.length > 0) {
+		output += ` (Carries ${carrierString})`;
+	}
+
+	return output;
 }
 
 function generateBreedingOutput() {
