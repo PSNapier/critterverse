@@ -419,7 +419,7 @@ h1 {
 }
 #output-content {
   overflow: auto;
-  white-space: pre;
+  white-space: pre-wrap;
 }
 .roll-btn {
   border-radius: var(--radius-xl);

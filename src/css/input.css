@@ -124,7 +124,7 @@ h1 {
 }
 #output-content {
 	overflow: auto;
-	white-space: pre;
+	white-space: pre-wrap;
 }
 
 /* roll button - ghost button at bottom center */

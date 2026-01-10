@@ -1,5 +1,5 @@
-const DAM_GENO_DEFAULT = 'ZX/nVo/nBi';
-const SIRE_GENO_DEFAULT = 'S+XZ/nLi/nIb';
+const DAM_GENO_DEFAULT = 'ZX/nVo/nSy/nBi/nAr';
+const SIRE_GENO_DEFAULT = 'S+XZ/SySy/nLi/nIb/nAr';
 
 function renderRollerInput() {
 	// Preserve checkbox states before clearing

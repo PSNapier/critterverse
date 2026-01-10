@@ -39,10 +39,10 @@ function punnetSquare(parent1, parent2) {
 	return punnetResults;
 }
 
-function matchy(str, pattern) {
-	const result = str.match(pattern);
+String.prototype.matchy = function (pattern) {
+	const result = this.match(pattern);
 	return result || [''];
-}
+};
 
 function isChecked(elementId) {
 	return document.getElementById(elementId).checked ? true : false;
@@ -52,8 +52,8 @@ function rollGene(sireGeno, damGeno, gene) {
 	const dom = `${gene[1]}${gene[1]}`;
 	const rec = `n${gene[1]}`;
 	const basePattern = new RegExp(`(${dom}|${rec})`);
-	const sireGenoMatch = matchy(sireGeno, basePattern)[0];
-	const damGenoMatch = matchy(damGeno, basePattern)[0];
+	const sireGenoMatch = sireGeno.matchy(basePattern)[0];
+	const damGenoMatch = damGeno.matchy(basePattern)[0];
 
 	const x = rng(100);
 	if (sireGenoMatch === dom && damGenoMatch === dom) {
