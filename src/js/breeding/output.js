@@ -153,17 +153,50 @@ function rollGenoCont() {
 }
 
 function phenoReader(geno) {
-	console.log(geno);
-
 	let output = [];
+	let carrier = [];
 
 	// base
 	for (const gene of dict.genesBase) {
-		if (geno.matchy(gene[1])) {
-			// TODO: implement phenotype reading logic
+		if (geno.includes(gene[1])) {
+			output.push(gene[0]);
 		}
 	}
-	return output;
+
+	// base special & lightshade
+	if (geno.search(/S\+/) !== -1) {
+		output.unshift('special');
+	}
+	let lightShade = [];
+	for (const gene of dict.genesLightShade) {
+		if (output.includes('special')) {
+			carrier.push(gene[0]);
+		} else {
+			if (geno.includes(gene[1])) {
+				lightShade.push(gene[0]);
+			}
+		}
+	}
+	if (lightShade.length > 1) {
+		let chosen = randomizer(lightShade);
+		output.unshift(chosen);
+		lightShade.splice(lightShade.indexOf(chosen), 1);
+		carrier = lightShade;
+	}
+
+	// base modifiers
+	for (const gene of dict.genesModifiers) {
+		if (geno.includes(gene[1])) {
+			output.push(gene[0]);
+		}
+	}
+
+	// output
+	let outputString = output.map((o) => o.capitalizeStr()).join(' ');
+	let carrierString = carrier.map((c) => c.capitalizeStr()).join(', ');
+	return carrier.length > 0
+		? `${outputString} (Carries ${carrierString})`
+		: outputString;
 }
 
 function generateBreedingOutput() {

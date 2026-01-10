@@ -35,7 +35,7 @@ const dict = {
 		['brown', 'ZX'],
 		['black', 'ZZ'],
 	],
-	genesSpecial: [['special', 'S+']],
+	genesSpecial: ['special', 'S+'],
 	genesLightShade: [
 		['lightened', 'Li'],
 		['shaded', 'Sh'],
