@@ -133,7 +133,14 @@ function rollGenoCont() {
 		if (result) {
 			output.realistic.push(result);
 			if (gene[1] === 'Ap') {
-				// appy pattern
+				// console.log('appy');
+				// for (const gene of [['PATN1'], ['PATN2']]) {
+				// 	const result = rollGene(sire.geno, dam.geno, gene);
+				// 	console.log(result);
+				// 	if (result) {
+				// 		output.realistic.push(result);
+				// 	}
+				// }
 			}
 		}
 	}

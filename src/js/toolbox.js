@@ -49,20 +49,16 @@ function isChecked(elementId) {
 }
 
 function rollGene(sireGeno, damGeno, gene) {
-	let dom, rec;
-	if (Array.isArray(gene[1])) {
-		dom = gene[1][1];
-		rec = gene[1][0];
-	} else {
-		dom = `${gene[1]}${gene[1]}`;
-		rec = `n${gene[1]}`;
-	}
+	let dom = `${gene[1]}${gene[1]}`;
+	let rec = `n${gene[1]}`;
 
 	const basePattern = new RegExp(`(${dom}|${rec})`);
 	const sireGenoMatch = sireGeno.matchy(basePattern)[0];
 	const damGenoMatch = damGeno.matchy(basePattern)[0];
 
-	console.log(sireGenoMatch, damGenoMatch);
+	if (sireGenoMatch === '' && damGenoMatch === '') {
+		return '';
+	}
 
 	const x = rng(100);
 	if (sireGenoMatch === dom && damGenoMatch === dom) {
@@ -84,17 +80,25 @@ function rollGene(sireGeno, damGeno, gene) {
 		} else {
 			return '';
 		}
-	} else if (sireGenoMatch === dom || damGenoMatch === dom) {
+	} else if (
+		(sireGenoMatch === dom && damGenoMatch === '') ||
+		(sireGenoMatch === '' && damGenoMatch === dom)
+	) {
 		return rec;
-	} else if (sireGenoMatch === rec || damGenoMatch === rec) {
+	} else if (
+		(sireGenoMatch === rec && damGenoMatch === '') ||
+		(sireGenoMatch === '' && damGenoMatch === rec)
+	) {
 		if (x <= 50) {
 			return rec;
 		} else {
 			return '';
 		}
+	} else {
+		console.log('rollGene() error!', sireGenoMatch, damGenoMatch);
 	}
-	return '';
 }
+
 // let a = ['a', 1, 'a', 2, '1'];
 // let unique = a.filter( onlyUnique );// returns ['a', 1, 2, '1']
 
@@ -102,11 +106,7 @@ function rollGene(sireGeno, damGeno, gene) {
 // const sortOrder = ['banana', 'date', 'apple', 'cherry'];
 // const sortedArray = arrayToSort.sortByArray(sortOrder);
 // console.log(sortedArray);
-Array.prototype.sortByArray = function (orderArr) {
-	const map = new Map();
-	orderArr.forEach((val, index) => map.set(val, index));
-	return this.sort((a, b) => map.get(a) - map.get(b));
-};
+Array.prototype.sortByArray = function (orderArr) {};
 
 // string.capitalizeStr();
 // TODO: capitalize no worky with opening parenthesis even though regexr says it should?
