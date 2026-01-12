@@ -132,15 +132,13 @@ function rollGenoCont() {
 		const result = rollGene(sire.geno, dam.geno, gene);
 		if (result) {
 			output.realistic.push(result);
-			if (gene[1] === 'Ap') {
-				// console.log('appy');
-				// for (const gene of [['PATN1'], ['PATN2']]) {
-				// 	const result = rollGene(sire.geno, dam.geno, gene);
-				// 	console.log(result);
-				// 	if (result) {
-				// 		output.realistic.push(result);
-				// 	}
-				// }
+		}
+		if (gene[0] === 'appaloosa') {
+			for (const gene of ['PATN1', 'PATN2']) {
+				const result = rollGene(sire.geno, dam.geno, gene);
+				if (result) {
+					output.realistic.push(result);
+				}
 			}
 		}
 	}
