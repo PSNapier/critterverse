@@ -49,8 +49,15 @@ function isChecked(elementId) {
 }
 
 function rollGene(sireGeno, damGeno, gene) {
-	let dom = `${gene[1]}${gene[1]}`;
-	let rec = `n${gene[1]}`;
+	let dom, rec;
+	if (typeof gene === 'string') {
+		dom = `${gene}${gene}`;
+		rec = `${gene}`;
+	} else {
+		dom = `${gene[1]}${gene[1]}`;
+		rec = `n${gene[1]}`;
+	}
+	console.log(dom, rec);
 
 	const basePattern = new RegExp(`(${dom}|${rec})`);
 	const sireGenoMatch = sireGeno.matchy(basePattern)[0];

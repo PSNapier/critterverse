@@ -1,3 +1,6 @@
+// Testing override: set to array of gene codes to guarantee (e.g., ['Ap', 'Mo'])
+const GUARANTEED_GENES = [];
+
 function generateRandomCritter() {
 	const critter = {
 		mutation: rng(100) <= 5 ? randomizer(dict.mutations) : '',
@@ -22,11 +25,21 @@ function generateRandomCritter() {
 				}
 				// Remove duplicates if any (defensive, as above guarantees uniqueness)
 				const uniquePicked = Array.from(new Set(picked));
-				return uniquePicked.join('/');
+				// Format with dom/rec notation
+				const formatted = uniquePicked.map((gene) => {
+					const x = rng(100);
+					if (x <= 10) {
+						// dom form
+						return `${gene}${gene}`;
+					} else {
+						// rec form
+						return `n${gene}`;
+					}
+				});
+				return formatted.join('/');
 			})(),
 		],
 		genoCont: [
-			rng(100) <= 5 ? randomizer(dict.genesAppy.map((g) => g[1])) : '',
 			// Roll up to 5 times, each with random chance, and pick unique results
 			...(() => {
 				const allGenes = [
@@ -35,6 +48,14 @@ function generateRandomCritter() {
 				];
 				const selected = [];
 				const genePool = [...allGenes];
+
+				// Add guaranteed genes first
+				for (const geneCode of GUARANTEED_GENES) {
+					if (genePool.includes(geneCode)) {
+						selected.push(geneCode);
+						genePool.splice(genePool.indexOf(geneCode), 1);
+					}
+				}
 				for (let i = 0; i < 5; i++) {
 					if (rng(100) < 40 && genePool.length > 0) {
 						// adjust chance as needed
@@ -52,6 +73,20 @@ function generateRandomCritter() {
 					} else {
 						// rec form
 						selected[i] = `n${gene}`;
+					}
+				}
+				// If Ap (appaloosa) is present, add PATN gene immediately after it
+				for (let i = 0; i < selected.length; i++) {
+					if (selected[i] === 'ApAp' || selected[i] === 'nAp') {
+						// Pick PATN1 or PATN2
+						const patnBase = randomizer(['PATN1', 'PATN2']);
+						const x = rng(100);
+						const patnFormatted =
+							x <= 10
+								? `${patnBase}${patnBase}`
+								: `${patnBase}`;
+						selected.splice(i + 1, 0, patnFormatted);
+						break; // Only add one PATN gene
 					}
 				}
 				return selected;
