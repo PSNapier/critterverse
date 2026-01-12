@@ -49,10 +49,10 @@ const dict = {
 		['volcanic', 'Vo'],
 	],
 	genesAppy: [
-		['blanket', 'PATN1'],
-		['leopard', 'PATN1PATN1'],
-		['snowcap', 'PATN2'],
 		['fewspot', 'PATN2PATN2'],
+		['snowcap', 'PATN2'],
+		['leopard', 'PATN1PATN1'],
+		['blanket', 'PATN1'],
 	],
 	genesRealistic: [
 		['appaloosa', 'Ap'],
