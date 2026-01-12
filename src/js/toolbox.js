@@ -49,11 +49,20 @@ function isChecked(elementId) {
 }
 
 function rollGene(sireGeno, damGeno, gene) {
-	const dom = `${gene[1]}${gene[1]}`;
-	const rec = `n${gene[1]}`;
+	let dom, rec;
+	if (Array.isArray(gene[1])) {
+		dom = gene[1][1];
+		rec = gene[1][0];
+	} else {
+		dom = `${gene[1]}${gene[1]}`;
+		rec = `n${gene[1]}`;
+	}
+
 	const basePattern = new RegExp(`(${dom}|${rec})`);
 	const sireGenoMatch = sireGeno.matchy(basePattern)[0];
 	const damGenoMatch = damGeno.matchy(basePattern)[0];
+
+	console.log(sireGenoMatch, damGenoMatch);
 
 	const x = rng(100);
 	if (sireGenoMatch === dom && damGenoMatch === dom) {
@@ -75,6 +84,8 @@ function rollGene(sireGeno, damGeno, gene) {
 		} else {
 			return '';
 		}
+	} else if (sireGenoMatch === dom || damGenoMatch === dom) {
+		return rec;
 	} else if (sireGenoMatch === rec || damGenoMatch === rec) {
 		if (x <= 50) {
 			return rec;
