@@ -1,5 +1,7 @@
 const SIRE_GENO_DEFAULT = 'XZ';
 const DAM_GENO_DEFAULT = 'ZX';
+// const SIRE_GENO_DEFAULT = 'S+XZ/ApAp/PATN1';
+// const DAM_GENO_DEFAULT = 'ZX/nVo/nSy/nBi/nAr';
 
 function renderRollerInput() {
 	// Preserve checkbox states before clearing
