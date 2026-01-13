@@ -61,8 +61,8 @@ function rollMutation() {
 	return '';
 }
 
-function rollSpecies() {
-	if (items.enchantedTablet) {
+function rollSpecies(critterCount) {
+	if (items.enchantedTablet && critterCount < 1) {
 		return items.enchantedTabletSpecies;
 	}
 	return randomizer([sire.species, dam.species]);
@@ -219,7 +219,7 @@ function phenoReader(geno) {
 			}
 		}
 	}
-	if (lightShade.length > 1) {
+	if (lightShade.length >= 1) {
 		let chosen = randomizer(lightShade);
 		base.unshift(chosen);
 		lightShade.splice(lightShade.indexOf(chosen), 1);
@@ -300,7 +300,7 @@ function generateBreedingOutput() {
 	for (let i = 0; i < clutchSize; i++) {
 		const critter = new Critter();
 		critter.mutation = rollMutation().capitalizeStr();
-		critter.species = rollSpecies().capitalizeStr();
+		critter.species = rollSpecies(i).capitalizeStr();
 		critter.sex = rollSex().capitalizeStr();
 		if (critter.mutation === 'Chimera') {
 			const normal = rollCritter();
