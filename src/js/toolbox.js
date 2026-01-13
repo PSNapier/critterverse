@@ -62,7 +62,7 @@ function rollGene(sireGeno, damGeno, gene) {
 		rec = `n${gene[1]}`;
 	}
 
-	const basePattern = new RegExp(`(${dom}|${rec})`);
+	const basePattern = new RegExp(`\\b(${dom}|${rec})\\b`);
 	const sireGenoMatch = sireGeno.matchy(basePattern)[0];
 	const damGenoMatch = damGeno.matchy(basePattern)[0];
 
