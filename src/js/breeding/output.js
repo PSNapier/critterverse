@@ -302,7 +302,6 @@ function generateBreedingOutput() {
 		critter.mutation = rollMutation().capitalizeStr();
 		critter.species = rollSpecies().capitalizeStr();
 		critter.sex = rollSex().capitalizeStr();
-		critter.mutation = 'Chimera';
 		if (critter.mutation === 'Chimera') {
 			const normal = rollCritter();
 			const chimera = rollCritter();
