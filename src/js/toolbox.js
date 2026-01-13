@@ -44,6 +44,10 @@ String.prototype.matchy = function (pattern) {
 	return result || [''];
 };
 
+String.prototype.searchy = function (pattern) {
+	return this.search(new RegExp(`\\b(${pattern})\\b`)) !== -1;
+};
+
 function isChecked(elementId) {
 	return document.getElementById(elementId).checked ? true : false;
 }
@@ -57,9 +61,8 @@ function rollGene(sireGeno, damGeno, gene) {
 		dom = `${gene[1]}${gene[1]}`;
 		rec = `n${gene[1]}`;
 	}
-	console.log(dom, rec);
 
-	const basePattern = new RegExp(`(${dom}|${rec})`);
+	const basePattern = new RegExp(`\\b(${dom}|${rec})\\b`);
 	const sireGenoMatch = sireGeno.matchy(basePattern)[0];
 	const damGenoMatch = damGeno.matchy(basePattern)[0];
 

@@ -17,6 +17,7 @@ function setMode(mode) {
 		modeFunctions[mode]();
 		updateModeButton();
 		updateTheme(mode);
+		updateGridColumns(mode);
 		// Set default output content
 		const outputContent = document.getElementById('output-content');
 		if (outputContent) {
@@ -27,6 +28,25 @@ function setMode(mode) {
 			modeSetupFunctions[mode]();
 		}
 		setupRollButton();
+	}
+}
+
+function updateGridColumns(mode) {
+	const input = document.getElementById('input');
+	const output = document.getElementById('output');
+	if (!input || !output) return;
+
+	// Remove existing col-span classes
+	input.className = input.className.replace(/col-span-\d+/g, '');
+	output.className = output.className.replace(/col-span-\d+/g, '');
+
+	if (mode === 'randomizer') {
+		input.classList.add('col-span-2');
+		output.classList.add('col-span-7');
+	} else {
+		// Default to breeding layout
+		input.classList.add('col-span-5');
+		output.classList.add('col-span-4');
 	}
 }
 
@@ -47,6 +67,7 @@ function registerMode(mode, renderFn, setupFn, rollFn) {
 		renderFn();
 		updateModeButton();
 		updateTheme(mode);
+		updateGridColumns(mode);
 		// Set default output content
 		const outputContent = document.getElementById('output-content');
 		if (outputContent) {
@@ -133,6 +154,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	isDOMReady = true;
 	updateModeButton();
 	updateTheme(currentMode);
+	updateGridColumns(currentMode);
 	// Set default output content
 	const outputContent = document.getElementById('output-content');
 	if (outputContent) {

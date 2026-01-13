@@ -166,30 +166,9 @@ function phenoReader(geno) {
 
 	// base
 	for (const gene of dict.genesBase) {
-		if (geno.includes(gene[1])) {
+		if (geno.searchy(`(?<=(S\\+)*)${gene[1]}`)) {
 			base.push(gene[0]);
 		}
-	}
-
-	// base special & lightshade
-	if (geno.search(/S\+/) !== -1) {
-		base.unshift('special');
-	}
-	let lightShade = [];
-	for (const gene of dict.genesLightShade) {
-		if (base.includes('special')) {
-			carrier.push(gene[0]);
-		} else {
-			if (geno.includes(gene[1])) {
-				lightShade.push(gene[0]);
-			}
-		}
-	}
-	if (lightShade.length > 1) {
-		let chosen = randomizer(lightShade);
-		base.unshift(chosen);
-		lightShade.splice(lightShade.indexOf(chosen), 1);
-		carrier = lightShade;
 	}
 
 	// base modifiers
@@ -200,9 +179,9 @@ function phenoReader(geno) {
 	for (const gene of dict.genesModifiers) {
 		let dom = `${gene[1]}${gene[1]}`;
 		let rec = `n${gene[1]}`;
-		if (geno.includes(dom)) {
+		if (geno.searchy(dom)) {
 			modifiersDom.push(gene[0]);
-		} else if (geno.includes(rec)) {
+		} else if (geno.searchy(rec)) {
 			modifiersRec.push(gene[0]);
 		}
 	}
@@ -222,20 +201,54 @@ function phenoReader(geno) {
 		modifiersCarried = [...modifiersRec];
 	}
 	if (modifier) {
-		base.push(modifier);
+		base.unshift(modifier);
 	}
 	carrier = [...carrier, ...modifiersCarried];
+
+	// base special & lightshade
+	if (geno.search(/\bS\+(?=[XZ]{2})\b/) !== -1) {
+		base.unshift('special');
+	}
+	let lightShade = [];
+	for (const gene of dict.genesLightShade) {
+		if (geno.searchy(`(${gene[1]}${gene[1]}|n${gene[1]})`)) {
+			if (base.includes('special')) {
+				carrier.push(gene[0]);
+			} else {
+				lightShade.push(gene[0]);
+			}
+		}
+	}
+	if (lightShade.length > 1) {
+		let chosen = randomizer(lightShade);
+		base.unshift(chosen);
+		lightShade.splice(lightShade.indexOf(chosen), 1);
+		carrier = lightShade;
+	}
 
 	// cont realistic
 	let cont = [];
 	for (const gene of dict.genesRealistic) {
-		if (geno.includes(gene[1])) {
+		if (geno.searchy(`(${gene[1]}${gene[1]}|n${gene[1]})`)) {
 			cont.push(gene[0]);
 			if (gene[1] === 'Ap') {
+				let tempAppy = [];
 				for (const appy of dict.genesAppy) {
-					if (geno.includes(appy[1])) {
-						cont.push(appy[0]);
+					if (geno.searchy(appy[1])) {
+						tempAppy.push(appy[0]);
 					}
+				}
+				const index = cont.indexOf(gene[0]);
+				if (tempAppy.length > 0) {
+					cont[index] = `${tempAppy.join(' ')} ${cont[index]}`;
+				}
+			}
+			continue;
+		}
+		if (gene[1] === 'Ap') {
+			for (const appy of dict.genesAppy) {
+				if (geno.searchy(appy[1])) {
+					carrier.push(appy[0]);
 				}
 			}
 		}
@@ -245,9 +258,9 @@ function phenoReader(geno) {
 	for (const gene of dict.genesCarrier) {
 		const dom = `${gene[1]}${gene[1]}`;
 		const rec = `n${gene[1]}`;
-		if (geno.includes(dom)) {
+		if (geno.searchy(dom)) {
 			cont.push(gene[0]);
-		} else if (geno.includes(rec)) {
+		} else if (geno.searchy(rec)) {
 			carrier.push(gene[0]);
 		}
 	}
@@ -262,7 +275,7 @@ function phenoReader(geno) {
 		output += ` and ${contString}`;
 	}
 	if (carrier.length > 0) {
-		output += ` (Carries ${carrierString})`;
+		output += ` (${carrierString})`;
 	}
 
 	return output;
@@ -275,19 +288,31 @@ function generateBreedingOutput() {
 
 	const clutchSize = rollClutchSize();
 
+	function rollCritter() {
+		const base = rollGenoBase();
+		const cont = rollGenoCont();
+		const geno = cont && cont.length > 0 ? `${base}/${cont}` : `${base}`;
+		const pheno = phenoReader(geno);
+		return [geno, pheno];
+	}
+
 	const critters = [];
 	for (let i = 0; i < clutchSize; i++) {
 		const critter = new Critter();
 		critter.mutation = rollMutation().capitalizeStr();
 		critter.species = rollSpecies().capitalizeStr();
 		critter.sex = rollSex().capitalizeStr();
-		const base = rollGenoBase();
-		const cont = rollGenoCont();
-		critter.geno =
-			cont && cont.length > 0 ? `${base}/${cont}` : `${base}`;
+		if (critter.mutation === 'Chimera') {
+			const normal = rollCritter();
+			const chimera = rollCritter();
+			critter.geno = `${normal[0]}//${chimera[0]}`;
+			critter.pheno = `${normal[1]} // ${chimera[1]}`;
+		} else {
+			const normal = rollCritter();
+			critter.geno = normal[0];
+			critter.pheno = normal[1];
+		}
 		critters.push(critter);
-		const pheno = phenoReader(critter.geno);
-		critter.pheno = pheno.length === 0 ? 'Pheno' : pheno;
 	}
 
 	const output = [];

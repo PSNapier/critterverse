@@ -1,5 +1,7 @@
-const SIRE_GENO_DEFAULT = 'S+XZ/ApAp/PATN1';
-const DAM_GENO_DEFAULT = 'ZX/nVo/nSy/nBi/nAr';
+const SIRE_GENO_DEFAULT = 'XZ';
+const DAM_GENO_DEFAULT = 'ZX';
+// const SIRE_GENO_DEFAULT = 'S+XZ/ApAp/PATN1';
+// const DAM_GENO_DEFAULT = 'ZX/nVo/nSy/nBi/nAr';
 
 function renderRollerInput() {
 	// Preserve checkbox states before clearing
@@ -110,7 +112,7 @@ function populateItems() {
 		checkbox.id = checkboxId;
 		label.appendChild(document.createTextNode(item + ': '));
 		label.appendChild(checkbox);
-		label.className = 'block mb-1 text-sm';
+		label.className = 'mb-1 text-sm';
 		document.getElementById('input').appendChild(label);
 	}
 }
