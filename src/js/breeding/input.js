@@ -110,7 +110,7 @@ function populateItems() {
 		checkbox.id = checkboxId;
 		label.appendChild(document.createTextNode(item + ': '));
 		label.appendChild(checkbox);
-		label.className = 'block mb-1 text-sm';
+		label.className = 'mb-1 text-sm';
 		document.getElementById('input').appendChild(label);
 	}
 }

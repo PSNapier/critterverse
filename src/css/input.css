@@ -206,6 +206,16 @@ h1 {
 	filter: none;
 }
 
+#input label {
+	display: grid;
+	grid-template-columns: auto auto auto 1fr;
+	gap: 0.25rem;
+}
+#input label select {
+	height: 1.3rem;
+	width: content;
+}
+
 #input h1 {
 	text-shadow: none;
 	filter: none;
