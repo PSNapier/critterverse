@@ -1,5 +1,5 @@
-const SIRE_GENO_DEFAULT = 'S+XZ/LiLi/ShSh';
-const DAM_GENO_DEFAULT = 'S+ZX';
+const SIRE_GENO_DEFAULT = 'XZ';
+const DAM_GENO_DEFAULT = 'ZX';
 // const SIRE_GENO_DEFAULT = 'S+XZ/ApAp/PATN1';
 // const DAM_GENO_DEFAULT = 'ZX/nVo/nSy/nBi/nAr';
 
