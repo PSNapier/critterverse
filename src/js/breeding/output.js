@@ -288,19 +288,33 @@ function generateBreedingOutput() {
 
 	const clutchSize = rollClutchSize();
 
+	function rollCritter() {
+		const base = rollGenoBase();
+		const cont = rollGenoCont();
+		const geno = cont && cont.length > 0 ? `${base}/${cont}` : `${base}`;
+		const pheno = phenoReader(geno);
+		console.log(geno, pheno);
+		return [geno, pheno];
+	}
+
 	const critters = [];
 	for (let i = 0; i < clutchSize; i++) {
 		const critter = new Critter();
 		critter.mutation = rollMutation().capitalizeStr();
 		critter.species = rollSpecies().capitalizeStr();
 		critter.sex = rollSex().capitalizeStr();
-		const base = rollGenoBase();
-		const cont = rollGenoCont();
-		critter.geno =
-			cont && cont.length > 0 ? `${base}/${cont}` : `${base}`;
+		critter.mutation = 'Chimera';
+		if (critter.mutation === 'Chimera') {
+			const normal = rollCritter();
+			const chimera = rollCritter();
+			critter.geno = `${normal[0]}//${chimera[0]}`;
+			critter.pheno = `${normal[1]} // ${chimera[1]}`;
+		} else {
+			const normal = rollCritter();
+			critter.geno = normal[0];
+			critter.pheno = normal[1];
+		}
 		critters.push(critter);
-		const pheno = phenoReader(critter.geno);
-		critter.pheno = pheno.length === 0 ? 'Pheno' : pheno;
 	}
 
 	const output = [];
