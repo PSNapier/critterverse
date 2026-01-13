@@ -150,14 +150,13 @@ h1 {
 	filter: opacity(0.5);
 }
 
-/* randomizer mode - output fills entire card */
+/* randomizer mode - input and output have different column spans */
 [data-theme='randomizer'] #input {
-	display: none;
+	border-radius: 1rem 0rem 0rem 1rem;
 }
 
 [data-theme='randomizer'] #output {
-	grid-column: 1 / -1;
-	border-radius: 1rem;
+	border-radius: 0rem 1rem 1rem 0rem;
 }
 
 /* mobile responsive - stack vertically */
@@ -178,6 +177,15 @@ h1 {
 	#output {
 		border-radius: 0 0 1rem 1rem;
 		overflow: visible;
+	}
+
+	/* randomizer mode mobile - match breeding mobile layout */
+	[data-theme='randomizer'] #input {
+		border-radius: 1rem 1rem 0 0;
+	}
+
+	[data-theme='randomizer'] #output {
+		border-radius: 0 0 1rem 1rem;
 	}
 
 	input[type='text'] {

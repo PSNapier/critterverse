@@ -178,11 +178,17 @@
   }
 }
 @layer utilities {
+  .col-span-2 {
+    grid-column: span 2 / span 2;
+  }
   .col-span-4 {
     grid-column: span 4 / span 4;
   }
   .col-span-5 {
     grid-column: span 5 / span 5;
+  }
+  .col-span-7 {
+    grid-column: span 7 / span 7;
   }
   .m-2 {
     margin: calc(var(--spacing) * 2);
@@ -454,11 +460,10 @@ h1 {
   filter: opacity(0.5);
 }
 [data-theme='randomizer'] #input {
-  display: none;
+  border-radius: 1rem 0rem 0rem 1rem;
 }
 [data-theme='randomizer'] #output {
-  grid-column: 1 / -1;
-  border-radius: 1rem;
+  border-radius: 0rem 1rem 1rem 0rem;
 }
 @media (max-width: 768px) {
   #card {
@@ -475,6 +480,12 @@ h1 {
   #output {
     border-radius: 0 0 1rem 1rem;
     overflow: visible;
+  }
+  [data-theme='randomizer'] #input {
+    border-radius: 1rem 1rem 0 0;
+  }
+  [data-theme='randomizer'] #output {
+    border-radius: 0 0 1rem 1rem;
   }
   input[type='text'] {
     width: 100%;
