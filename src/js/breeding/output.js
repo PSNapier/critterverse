@@ -293,7 +293,6 @@ function generateBreedingOutput() {
 		const cont = rollGenoCont();
 		const geno = cont && cont.length > 0 ? `${base}/${cont}` : `${base}`;
 		const pheno = phenoReader(geno);
-		console.log(geno, pheno);
 		return [geno, pheno];
 	}
 
