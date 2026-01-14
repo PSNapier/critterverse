@@ -3,6 +3,7 @@ const GUARANTEED_GENES = [];
 
 function generateRandomCritter() {
 	GUARANTEED_GENES.length = 0;
+	GUARANTEED_GENES.push('Vo', 'Ms', 'Oc');
 	const rarity = document.getElementById('egg-rarity').value;
 	if (rarity === 'uncommon') {
 		const allGenePools = [
