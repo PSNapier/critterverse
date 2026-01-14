@@ -223,7 +223,7 @@ function phenoReader(geno) {
 		let chosen = randomizer(lightShade);
 		base.unshift(chosen);
 		lightShade.splice(lightShade.indexOf(chosen), 1);
-		carrier = lightShade;
+		carrier = [...carrier, ...lightShade];
 	}
 
 	// cont realistic
