@@ -80,7 +80,7 @@ function rollGene(sireGeno, damGeno, gene) {
 		if (x <= 50) {
 			return dom;
 		} else {
-			return '';
+			return rec;
 		}
 	} else if (sireGenoMatch === rec && damGenoMatch === rec) {
 		if (x <= 25) {
