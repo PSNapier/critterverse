@@ -18,6 +18,7 @@ const dict = {
 		'quilja',
 		'fershiis',
 		'xenfeli',
+		'donsozo',
 	],
 	mutations: [
 		'albinism',
@@ -28,6 +29,9 @@ const dict = {
 		'inverted',
 		'chimera',
 		'harlequin',
+		'abstracted',
+		'axanthic',
+		'gembound',
 	],
 	genesBase: [
 		['tawny', 'XX'],
@@ -105,6 +109,10 @@ const dict = {
 		['trailing', 'Tr'],
 		['vent', 'Vt'],
 		['vest', 'Ve'],
+		['glaucus', 'Gl'],
+		['python', 'Py'],
+		['rosette', 'Rt'],
+		['sushi', 'Su'],
 	],
 	genesCarrier: [
 		['mosaic', 'Mo'],
@@ -114,5 +122,7 @@ const dict = {
 		['koi', 'Ki'],
 		['nebula', 'Nb'],
 		['skeletal', 'Sk'],
+		['bioluminescence', 'Bm'],
+		['lava', 'La'],
 	],
 };
